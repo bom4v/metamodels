@@ -1,0 +1,5 @@
+metamodels.yaml*
+.metamodels.yaml*
+/build.log*
+/test.log*
+/workspace/

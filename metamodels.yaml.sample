@@ -10,7 +10,7 @@ default_spark_versions: [2.2.0]
 components:
   - name: ti-spark-examples
     buildbin: sbt
-    deps: [ti-spark-inventory, ti-data-samples]
+    deps: [ti-spark-all, ti-data-samples]
 
   - name: ti-spark-all
     buildbin: sbt

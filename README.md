@@ -38,7 +38,7 @@ $ docker push telecomsintelligence/bom4v:latest
 
 # Run the Docker image
 ```bash
-$ docker run -i telecomsintelligence/bom4v:latest bash
+$ docker run --rm -it telecomsintelligence/bom4v:latest bash
 $ cd workspace/src/ti-spark-examples
 $ ./mkLocalDir.sh
 $ sbt run

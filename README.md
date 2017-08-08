@@ -1,6 +1,12 @@
+Build of Telecoms Intelligence (TI) Business-related Object Models
+==================================================================
+
+# References
+* Docker Hub repository: https://hub.docker.com/r/telecomsintelligence/bom4v
+* GitHub organization: http://github.com/telecomsintelligence
 
 # Meta-build
-## Inteeractive (with ``rake``)
+## Inteeractive build with ``rake``
 ```bash
 $ mkdir -p ~/dev/ti/ti-models
 $ cd ~/dev/ti/ti-models
@@ -15,7 +21,7 @@ $ rake offline=true deliver
 $ rake offline=true test
 ```
 
-## By batch (with Docker)
+## Batched build and Docker image generation
 ```bash
 $ mkdir -p ~/dev/ti/ti-models
 $ cd ~/dev/ti/ti-models

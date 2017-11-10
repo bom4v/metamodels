@@ -14,11 +14,15 @@ components:
 
   - name: ti-spark-all
     buildbin: sbt
-    deps: [ti-models-calls, ti-models-customers]
+    deps: [ti-models-calls, ti-serializers-customers]
 
   - name: ti-data-samples
     buildbin: sbt
     deps: {}
+
+  - name: ti-serializers-customers
+    buildbin: sbt
+    deps: [ti-models-customers]
 
   - name: ti-models-customers
     buildbin: sbt

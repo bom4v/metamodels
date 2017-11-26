@@ -14,7 +14,7 @@ components:
 
   - name: ti-spark-all
     buildbin: sbt
-    deps: [ti-models-calls, ti-serializers-customers]
+    deps: [ti-serializers-calls, ti-serializers-customers]
 
   - name: ti-data-samples
     buildbin: sbt
@@ -23,6 +23,10 @@ components:
   - name: ti-serializers-customers
     buildbin: sbt
     deps: [ti-models-customers]
+
+  - name: ti-serializers-calls
+    buildbin: sbt
+    deps: [ti-models-calls]
 
   - name: ti-models-customers
     buildbin: sbt

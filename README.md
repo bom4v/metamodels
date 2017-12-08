@@ -104,6 +104,7 @@ telecomsintelligence/bom4v      latest              981cb5f04428        20 secon
 $ docker push telecomsintelligence/bom4v:latest
 ```
 
+
 # Run the Docker image
 ```bash
 $ docker run --rm -it telecomsintelligence/bom4v:latest bash

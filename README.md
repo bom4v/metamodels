@@ -76,6 +76,7 @@ $ cd -
 $ cd workspace/src/ti-spark-examples
 $ vi src/main/scala/org/bom4v/ti/Demonstrator.scala
 $ git add src/main/scala/org/bom4v/ti/Demonstrator.scala
+$ sbt +compile +test
 $ cd -
 $ rake offline=true test
 $ # If all goes well at the integration level

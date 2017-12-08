@@ -9,20 +9,18 @@ MAINTAINER Denis Arnaud <denis.arnaud_github at m4x dot org>
 RUN rpm --import http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-7
 
 # Update of CentOS
-RUN yum -y update
+RUN yum -y clean all
+RUN yum -y upgrade
 
 # EPEL
 RUN yum -y install epel-release
 
-# DNF
-RUN yum -y install dnf
-
 # Base install
-RUN dnf -y install git-all unzip tar wget curl maven rake rubygem-rake which
+RUN yum -y install git-all unzip tar wget curl maven rake rubygem-rake which
 
 # Add bintray repository where the SBT binaries are published
 RUN curl -sS https://bintray.com/sbt/rpm/rpm | tee /etc/yum.repos.d/bintray-sbt-rpm.repo
-RUN dnf -y install sbt
+RUN yum -y install sbt
 
 # Customization
 ENV JDK_VERSION 8u141
@@ -48,7 +46,7 @@ ENV BOM4V_DIR=/opt/bom4v
 RUN wget -c --header "Cookie: oraclelicense=accept-securebackup-cookie" $JDK_RPM_URL/$JDK_RPM
 
 # Install Java
-RUN dnf -y install $JDK_RPM
+RUN yum -y install $JDK_RPM
 # Uncomment the following line when the Docker build process works well (during development process, it is much quicker not to re-downloading it everytime)
 #RUN rm -f $JDK_RPM
 
@@ -66,7 +64,7 @@ ENV PATH $PATH:/usr/lib/scala/bin
 RUN sbt sbt-version
 
 # XML parsing with Ruby, thanks to Nokogiri
-RUN dnf -y install rubygem-nokogiri
+RUN yum -y install rubygem-nokogiri
 
 # Copy the SSH keys
 RUN mkdir -p $HOME/.ssh && chmod 700 $HOME/.ssh

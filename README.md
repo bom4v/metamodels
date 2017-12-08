@@ -89,6 +89,9 @@ $ cd -
 ```
 
 ## Batched build and Docker image generation
+[Docker images are generated on Docker Hub](https://hub.docker.com/r/telecomsintelligence/bom4v/) for convenience reason,
+avoiding the need to set up a proper development environment. The Docker image provides such a ready-to-use,
+ready-to-develop, ready-to-contribute environment. Enjoy!
 ```bash
 $ mkdir -p ~/dev/ti/ti-models
 $ cd ~/dev/ti/ti-models

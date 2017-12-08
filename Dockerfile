@@ -61,7 +61,7 @@ RUN ln -s /usr/lib/scala-$SCALA_VERSION /usr/lib/scala
 ENV PATH $PATH:/usr/lib/scala/bin
 
 # Run SBT once, at Docker build time, so that it does not download the dependencies at run time
-RUN sbt sbt-version
+RUN sbt version
 
 # XML parsing with Ruby, thanks to Nokogiri
 RUN yum -y install rubygem-nokogiri

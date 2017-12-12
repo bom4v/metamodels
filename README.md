@@ -109,7 +109,7 @@ $ docker push telecomsintelligence/bom4v:latest
 ```bash
 $ docker run --rm -it telecomsintelligence/bom4v:latest bash
 $ cd workspace/src/ti-spark-examples
-$ ./mkLocalDir.sh
+$ ./fillLocalDataDir.sh
 $ sbt run
 ```
 

@@ -14,6 +14,10 @@ components:
 
   - name: ti-spark-all
     buildbin: sbt
+    deps: [ti-spark-data-generation]
+
+  - name: ti-spark-data-generation
+    buildbin: sbt
     deps: [ti-serializers-calls, ti-serializers-customers]
 
   - name: ti-data-samples

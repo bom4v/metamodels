@@ -104,7 +104,6 @@ telecomsintelligence/bom4v      latest              981cb5f04428        20 secon
 $ docker push telecomsintelligence/bom4v:latest
 ```
 
-
 # Run the Docker image
 ```bash
 $ docker run --rm -it telecomsintelligence/bom4v:latest bash
@@ -113,4 +112,14 @@ $ ./fillLocalDataDir.sh
 $ sbt run
 ```
 
+# Run on a stand-alone (single node) Spark cluster
+
+## Stand-alone Spark cluster installation
+
+### MacOS
+```bash
+$ brew cask install homebrew/cask-versions/java8
+$ export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
+$ brew install apache-spark
+```
 

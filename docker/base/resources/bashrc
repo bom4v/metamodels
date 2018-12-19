@@ -1,0 +1,38 @@
+
+# Locale
+export LANGUAGE="en_US:en"
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
+
+# History
+export HISTTIMEFORMAT="%d/%m/%y %T "
+
+# Prompt
+source /usr/share/git-core/contrib/completion/git-prompt.sh
+export GIT_PS1_SHOWDIRTYSTATE=true
+export GIT_PS1_SHOWUNTRACKEDFILES=true
+export PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '
+
+# Java
+export JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk"
+
+# Scala
+export SCALA_HOME="/usr/lib/scala"
+export PATH="${PATH}:${SCALA_HOME}/bin"
+
+# Source global definitions
+if [ -f /etc/bashrc ]
+then
+    . /etc/bashrc
+fi
+
+# Aliases
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+alias dir='ls -laFh --color'
+alias grep='grep --color'
+
+# BOM for Verticals
+alias cdbom4v='cd ~/dev/bom4v'
+

@@ -47,7 +47,7 @@ One can then interact with any specific component directly by jumping
 (`cd`-ing) into the corresponding directory. Software code can be edited
 and committed directly from that component sub-directory.
 
-[Docker images, hosted on Docker Cloud](https://cloud.docker.com/u/bom4v/repository/docker/bom4v/metamodels),
+[Docker images, hosted on Docker Cloud](https://cloud.docker.com/u/bom4v/repository/docker/bom4v/sparkml),
 are provided for convenience reason, avoiding the need to set up
 a proper development environment: they provide ready-to-use,
 ready-to-develop, ready-to-contribute environments on top of
@@ -60,7 +60,7 @@ Enjoy!
 
 # References
 * Docker Cloud repository:
-  https://cloud.docker.com/u/bom4v/repository/docker/bom4v/metamodels
+  https://cloud.docker.com/u/bom4v/repository/docker/bom4v/sparkml
   + Base Docker images:
     https://cloud.docker.com/u/bigdatadevelopment/repository/docker/bigdatadevelopment/base
 * GitHub organizations:
@@ -73,7 +73,7 @@ Enjoy!
 # Run the Docker image
 * As a quick starter, a Spark-based churn detection example may be run
   from any of
-  [Docker images](https://cloud.docker.com/u/bom4v/repository/docker/bom4v/metamodels):
+  [Docker images](https://cloud.docker.com/u/bom4v/repository/docker/bom4v/sparkml):
 ```bash
 $ docker run --rm -it bom4v/sparkml:latest bash
 [build@c..5 bom4v]$ cd workspace/src/ti-spark-examples
@@ -118,7 +118,7 @@ ratio false negative : 0.11544227886056972
 
 # Meta-build
 The
-[Docker images](https://cloud.docker.com/u/bom4v/repository/docker/bom4v/metamodels)
+[Docker images](https://cloud.docker.com/u/bom4v/repository/docker/bom4v/sparkml)
 come with all the dependencies already installed. If there is a need,
 however, for some more customization (for instance, other software products
 such as [Kafka](https://kafka.apache.org) or
@@ -128,9 +128,9 @@ and running on a native environment (as opposed to within
 a Docker container).
 
 An alternative is to develop your own Docker image from the
-[one provided by that project](https://cloud.docker.com/u/bom4v/repository/docker/bom4v/metamodels).
+[one provided by that project](https://cloud.docker.com/u/bom4v/repository/docker/bom4v/sparkml).
 You would typically start the `Dockerfile` with
-`FROM bom4v/metamodels:<linux-distrib>`, where `<linux-distrib>` is `centos7`,
+`FROM bom4v/sparkml:<linux-distrib>`, where `<linux-distrib>` is `centos7`,
 `debian9`, `ubuntu1804` or `ubuntu1810`.
 
 ## Installation of dependencies (if not using the Docker image)
@@ -141,7 +141,7 @@ engines currently relies on [Spark](https://spark.apache.org).
 
 ## Docker images
 The
-[maintained Docker images for that project](http://github.com/bom4v/metamodels/tree/master/docker/)
+[maintained Docker images for that project](http://github.com/bom4v/sparkml/tree/master/docker/)
 come with all the necessary pieces of software. They can either be used
 _as is_, or used as inspiration for _ad hoc_ setup on other configurations.
 
@@ -248,7 +248,7 @@ Those operations may be done either from within the Docker container,
 or in a native environment (on which the dependencies have been installed).
 
 As a reminder, to enter into the container, just type
-`docker run --rm -it bom4v/metamodels:<linux-distrib> bash`,
+`docker run --rm -it bom4v/sparkml:<linux-distrib> bash`,
 where `<linux-distrib>` is `centos7`, `debian9`, `ubuntu1804` or `ubuntu1810`
 (and `exit` to leave it).
 
@@ -282,10 +282,10 @@ how to do it:
 $ mkdir -p ~/dev/bom4v && cd ~/dev/bom4v
 $ git clone https://github.com/bom4v/metamodels.git
 $ cd metamodels
-$ docker build -t bom4v/metamodels:<linux-distrib> --squash docker/<linux-distrib>/
-$ docker push bom4v/metamodels:<linux-distrib>
+$ docker build -t bom4v/sparkml:<linux-distrib> --squash docker/<linux-distrib>/
+$ docker push bom4v/sparkml:<linux-distrib>
 $ docker images | grep "^bom4v"
-REPOSITORY        TAG             IMAGE ID        CREATED             SIZE
-bom4v/metamodels  <linux-distrib> 9a33eee22a3d    About an hour ago   2.16GB
+REPOSITORY      TAG             IMAGE ID        CREATED             SIZE
+bom4v/sparkml   <linux-distrib> 9a33eee22a3d    About an hour ago   2.16GB
 ```
 

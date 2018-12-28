@@ -1,5 +1,4 @@
-metamodels.yaml*
-.metamodels.yaml*
+/metamodels.yaml
 /Rakefile
 /build.log*
 /test.log*

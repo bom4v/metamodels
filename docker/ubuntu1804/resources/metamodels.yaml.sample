@@ -1,0 +1,42 @@
+# MetaModels configuration file
+default_base_repo: 'https://github.com/bom4v'
+default_branch: master
+default_buildbin: sbt
+mvn_args: ''
+sbt_args: 'set isSnapshot := true'
+default_hadoop_versions: [2.7]
+default_spark_versions: [2.2.0]
+
+components:
+  - name: ti-spark-examples
+    buildbin: sbt
+    deps: [ti-spark-all, ti-data-samples]
+
+  - name: ti-spark-all
+    buildbin: sbt
+    deps: [ti-spark-data-generation]
+
+  - name: ti-spark-data-generation
+    buildbin: sbt
+    deps: [ti-serializers-calls, ti-serializers-customers]
+
+  - name: ti-data-samples
+    buildbin: sbt
+    deps: {}
+
+  - name: ti-serializers-customers
+    buildbin: sbt
+    deps: [ti-models-customers]
+
+  - name: ti-serializers-calls
+    buildbin: sbt
+    deps: [ti-models-calls]
+
+  - name: ti-models-customers
+    buildbin: sbt
+    deps: {}
+
+  - name: ti-models-calls
+    buildbin: sbt
+    deps: {}
+

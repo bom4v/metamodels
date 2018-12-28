@@ -51,10 +51,9 @@ and committed directly from that component sub-directory.
 are provided for convenience reason, avoiding the need to set up
 a proper development environment: they provide ready-to-use,
 ready-to-develop, ready-to-contribute environments on top of
-a few well known and stable Linux distributions
+a few well known Linux distributions
 (_e.g._, [CentOS 7](https://wiki.centos.org/Manuals/ReleaseNotes/CentOS7),
-[Debian 9 (Stretch)](https://www.debian.org/releases/stretch/),
-[Ubuntu 18.04 LTS (Bionic Beaver)](http://releases.ubuntu.com/18.04/) and
+[Debian 9 (Stretch)](https://www.debian.org/releases/stretch/) and
 [Ubuntu 18.10 (Cosmic Cuttlefish)](http://releases.ubuntu.com/18.10/)).
 Enjoy!
 
@@ -130,8 +129,8 @@ a Docker container).
 An alternative is to develop your own Docker image from the
 [one provided by that project](https://cloud.docker.com/u/bom4v/repository/docker/bom4v/sparkml).
 You would typically start the `Dockerfile` with
-`FROM bom4v/sparkml:<linux-distrib>`, where `<linux-distrib>` is `centos7`,
-`debian9`, `ubuntu1804` or `ubuntu1810`.
+`FROM bom4v/sparkml:<linux-distrib>`, where `<linux-distrib>` is `centos`,
+`debian` or `ubuntu`.
 
 ## Installation of dependencies (if not using the Docker image)
 [Java](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
@@ -249,7 +248,7 @@ or in a native environment (on which the dependencies have been installed).
 
 As a reminder, to enter into the container, just type
 `docker run --rm -it bom4v/sparkml:<linux-distrib> bash`,
-where `<linux-distrib>` is `centos7`, `debian9`, `ubuntu1804` or `ubuntu1810`
+where `<linux-distrib>` is `centos`, `debian` or `ubuntu`
 (and `exit` to leave it).
 
 ```bash

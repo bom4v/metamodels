@@ -47,13 +47,22 @@ One can then interact with any specific component directly by jumping
 (`cd`-ing) into the corresponding directory. Software code can be edited
 and committed directly from that component sub-directory.
 
-[Docker images, hosted on Docker Cloud](https://cloud.docker.com/u/bom4v/repository/docker/bom4v/sparkml),
+[Docker images, hosted on Docker Cloud](https://cloud.docker.com/u/bom4v/repository/docker/bom4v/metamodels),
 are provided for convenience reason, avoiding the need to set up
-a proper development environment: they provide a ready-to-use,
-ready-to-develop, ready-to-contribute environment. Enjoy!
+a proper development environment: they provide ready-to-use,
+ready-to-develop, ready-to-contribute environments on top of
+a few well known and stable Linux distributions
+(_e.g._, [CentOS 7](https://wiki.centos.org/Manuals/ReleaseNotes/CentOS7),
+[Debian 9 (Stretch)](https://www.debian.org/releases/stretch/),
+[Ubuntu 18.04 LTS (Bionic Beaver)](http://releases.ubuntu.com/18.04/) and
+[Ubuntu 18.10 (Cosmic Cuttlefish)](http://releases.ubuntu.com/18.10/)).
+Enjoy!
 
 # References
-* Docker Cloud repository: https://cloud.docker.com/u/bom4v/repository/docker/bom4v/sparkml
+* Docker Cloud repository:
+  https://cloud.docker.com/u/bom4v/repository/docker/bom4v/metamodels
+  + Base Docker images:
+    https://cloud.docker.com/u/bigdatadevelopment/repository/docker/bigdatadevelopment/base
 * GitHub organizations:
   + Business-oriented Object Models (BOM) for the TI vertical (BOM4V):
     http://github.com/bom4v
@@ -63,7 +72,8 @@ ready-to-develop, ready-to-contribute environment. Enjoy!
 
 # Run the Docker image
 * As a quick starter, a Spark-based churn detection example may be run
-  from the [`sparkml` Docker image]():
+  from any of
+  [Docker images](https://cloud.docker.com/u/bom4v/repository/docker/bom4v/metamodels):
 ```bash
 $ docker run --rm -it bom4v/sparkml:latest bash
 [build@c..5 bom4v]$ cd workspace/src/ti-spark-examples
@@ -107,20 +117,21 @@ ratio false negative : 0.11544227886056972
 ```
 
 # Meta-build
-The [Docker image](https://cloud.docker.com/u/bom4v/repository/docker/bom4v/sparkml)
+The
+[Docker images](https://cloud.docker.com/u/bom4v/repository/docker/bom4v/metamodels)
 come with all the dependencies already installed. If there is a need,
-however, for some more customization (for instance, having a different
-Linux distribution than [CentOS](http://centos.org), or install some
-other software products such as [Kafka](https://kafka.apache.org) or
+however, for some more customization (for instance, other software products
+such as [Kafka](https://kafka.apache.org) or
 [ElasticSearch](http://elasticsearch.com)), this section describes
 how to get the end-to-end Spark-based churn prediction example up
 and running on a native environment (as opposed to within
 a Docker container).
 
 An alternative is to develop your own Docker image from the
-[one provided by that project](https://cloud.docker.com/u/bom4v/repository/docker/bom4v/sparkml).
-You would typically start the `Dockerfile` with `FROM bom4v/sparkml:base`
-or `FROM bom4v/sparkml:latest`.
+[one provided by that project](https://cloud.docker.com/u/bom4v/repository/docker/bom4v/metamodels).
+You would typically start the `Dockerfile` with
+`FROM bom4v/metamodels:<linux-distrib>`, where `<linux-distrib>` is `centos7`,
+`debian9`, `ubuntu1804` or `ubuntu1810`.
 
 ## Installation of dependencies (if not using the Docker image)
 [Java](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
@@ -129,8 +140,9 @@ and run the various components of that project. Moreover, the current execution
 engines currently relies on [Spark](https://spark.apache.org).
 
 ## Docker images
-The [maintained Docker image for that project](docker/base/)
-comes with all the necessary pieces of software. They can either be used
+The
+[maintained Docker images for that project](http://github.com/bom4v/metamodels/tree/master/docker/)
+come with all the necessary pieces of software. They can either be used
 _as is_, or used as inspiration for _ad hoc_ setup on other configurations.
 
 ## Native environment (outside of Docker)
@@ -236,7 +248,9 @@ Those operations may be done either from within the Docker container,
 or in a native environment (on which the dependencies have been installed).
 
 As a reminder, to enter into the container, just type
-`docker run --rm -it bom4v/sparkml:latest bash` (and `exit` to leave it).
+`docker run --rm -it bom4v/metamodels:<linux-distrib> bash`,
+where `<linux-distrib>` is `centos7`, `debian9`, `ubuntu1804` or `ubuntu1810`
+(and `exit` to leave it).
 
 ```bash
 $ cd ~/dev/bom4v/metamodels
@@ -268,13 +282,10 @@ how to do it:
 $ mkdir -p ~/dev/bom4v && cd ~/dev/bom4v
 $ git clone https://github.com/bom4v/metamodels.git
 $ cd metamodels
-$ docker build -t bom4v/sparkml:base --squash docker/base/
-$ docker push bom4v/sparkml:base
-$ docker build -t bom4v/sparkml:beta --squash docker/sparkml/
-$ docker push bom4v/sparkml:beta
+$ docker build -t bom4v/metamodels:<linux-distrib> --squash docker/<linux-distrib>/
+$ docker push bom4v/metamodels:<linux-distrib>
 $ docker images | grep "^bom4v"
-REPOSITORY       TAG        IMAGE ID        CREATED             SIZE
-bom4v/sparkml    beta       9a33eee22a3d    About an hour ago   2.16GB
-bom4v/sparkml    base       c5f1ea63a79b    2 hours ago         1.66GB
+REPOSITORY        TAG             IMAGE ID        CREATED             SIZE
+bom4v/metamodels  <linux-distrib> 9a33eee22a3d    About an hour ago   2.16GB
 ```
 

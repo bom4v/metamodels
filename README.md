@@ -72,9 +72,10 @@ Enjoy!
 # Run the Docker image
 * As a quick starter, a Spark-based churn detection example may be run
   from any of
-  [Docker images](https://cloud.docker.com/u/bom4v/repository/docker/bom4v/sparkml):
+  [Docker images](https://cloud.docker.com/u/bom4v/repository/docker/bom4v/sparkml),
+  where `<linux-distrib>` is `centos`, `debian` or `ubuntu`:
 ```bash
-$ docker run --rm -it bom4v/sparkml:latest bash
+$ docker run --rm -it bom4v/sparkml:<linux-distrib> bash
 [build@c..5 bom4v]$ cd workspace/src/ti-spark-examples
 [build@c..5 ti-spark-examples (master)]$ ./fillLocalDataDir.sh
 [build@c..5 ti-spark-examples (master)]$ sbt run
@@ -219,8 +220,8 @@ The Docker image indeed comes with that Git repository already cloned and built.
 $ mkdir -p ~/dev/bom4v && cd ~/dev/bom4v
 $ git clone https://github.com/bom4v/metamodels.git
 $ cd metamodels
-$ cp docker/builder/resources/metamodels.yaml.sample metamodels.yaml
-$ ln -s docker/builder/resources/Rakefile Rakefile
+$ cp docker/centos/resources/metamodels.yaml.sample metamodels.yaml
+$ ln -s docker/centos/resources/Rakefile Rakefile
 $ rake clone
 $ rake checkout
 $ rake offline=true info
@@ -231,7 +232,7 @@ That operation may be done either from within the Docker container,
 or in a native environment (on which the dependencies have been installed).
 
 As a reminder, to enter into the container, just type
-`docker run --rm -it bom4v/sparkml:latest bash` (and `exit` to leave it).
+`docker run --rm -it bom4v/sparkml:<linux-distrib> bash` (and `exit` to leave it).
 
 The following sequence of commands describes how to build, test and deliver
 the artefacts of all the components, so that Spark can execute the full project:

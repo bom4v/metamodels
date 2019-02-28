@@ -267,7 +267,7 @@ def setup_sbt_build_targets(cmp, build_vars)
       cmp_builder_cmds = "#{cmp_build_bin} #{sbt_args}"
       build_vars['BUILDER_CMDS'] = "#{cmp_builder_cmds}"
 
-      cmp_builder_tasks = "+compile +package +publish-m2 +publish-local"
+      cmp_builder_tasks = "+compile +package +publishM2 +publishLocal"
       build_vars['BUILDER_FULL_CMDS'] << "#{cmp_builder_cmds} #{cmp_builder_tasks}"
       # Set up the SBT test command line
       cmp_test_tasks = "+test"
@@ -281,7 +281,7 @@ def setup_sbt_build_targets(cmp, build_vars)
         cmp_builder_cmds = "#{cmp_build_bin} #{sbt_args}"
         build_vars['BUILDER_CMDS'] = "#{cmp_builder_cmds}"
         
-        cmp_builder_tasks = "+compile +package +publish-m2 +publish-local"
+        cmp_builder_tasks = "+compile +package +publishM2 +publishLocal"
         build_vars['BUILDER_FULL_CMDS'] << "#{cmp_builder_cmds} #{cmp_builder_tasks}"
         
         # Set up the SBT test command line

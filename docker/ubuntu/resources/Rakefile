@@ -131,13 +131,15 @@ def lookup_version_from_mvn_pom(mvn_pom_file)
   if File.readable?(mvn_pom_file)
     doc = File.open(mvn_pom_file) { |f| Nokogiri::XML(f) }
     mvn_pom_full_version = doc.at_css('//version').content
-    if mvn_pom_full_version =~ /^(\d*\.\d*.\d*)(-hadoop\d\.\d)?(-spark\d\.\d.\d)?$/i
+    if mvn_pom_full_version =~ /^(\d*\.\d*.\d*)(-hadoop\d\.\d)?(-spark\d\.\d)?$/i
       mvn_pom_version = $1
       if $2
         has_hadoop = true
+	mvn_pom_version += $2
       end
       if $3
         has_spark = true
+	mvn_pom_version += $3
       end
     end
   end
@@ -151,13 +153,15 @@ def lookup_version_from_sbt_build(sbt_build_file)
   has_spark = false
   File.open(sbt_build_file, "r") do |f|
     file_content = f.read
-    if file_content =~ /version := "(\d*\.\d*.\d*)(-hadoop\d\.\d)?(-spark\d\.\d.\d)?"[,]?$/i
+    if file_content =~ /version := "(\d*\.\d*.\d*)(-hadoop\d\.\d)?(-spark\d\.\d)?"[,]?$/i
       sbt_proj_version = $1
       if $2
         has_hadoop = true
+	sbt_proj_version += $2
       end
       if $3
         has_spark = true
+	sbt_proj_version += $3
       end
     end
   end

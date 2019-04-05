@@ -85,7 +85,7 @@ Enjoy!
 $ docker run --rm -it bom4v/sparkml:<linux-distrib> bash
 [build@c..5 bom4v]$ cd workspace/src/ti-spark-examples
 [build@c..5 ti-spark-examples (master)]$ ./fillLocalDataDir.sh
-[build@c..5 ti-spark-examples (master)]$ sbt run
+[build@c..5 ti-spark-examples (master)]$ sbt "runMain org.bom4v.ti.Demonstrator"
 [info] ...
 root
  |-- specificationVersionNumber: integer (nullable = true)

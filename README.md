@@ -1,6 +1,8 @@
 Build of Business-oriented Object Models (BOM)
 ==============================================
 
+[![Docker Repository on Quay](https://quay.io/repository/bom4v/metamodels/status "Docker Repository on Quay")](https://quay.io/repository/bom4v/metamodels)
+
 # Overview
 Business-relted Object Models (BOM) are software classes (incarned here
 through Scala case classes) modelling the business of a particular industry

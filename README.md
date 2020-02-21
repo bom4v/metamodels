@@ -205,8 +205,8 @@ $ . ~/.bashrc
 ### MacOS
 * Java 8, Maven, SBT and Apache Spark:
 ```bash
-$ brew cask install homebrew/cask-versions/java8
-$ export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
+$ brew tap adoptopenjdk/openjdk
+$ brew cask install adoptopenjdk8
 $ brew install maven sbt scala apache-spark
 ```
 

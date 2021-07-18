@@ -2,7 +2,7 @@
 # http://github.com/bom4v/metamodels/tree/master/docker/debian
 # Umbrella project for the BOM for Verticals (BOM4V) components
 #
-FROM bigdatadevelopment/base:debian10
+FROM infrahelpers/javabigdata:debian10
 
 LABEL authors="Denis Arnaud <denis.arnaud_github at m4x dot org>"
 

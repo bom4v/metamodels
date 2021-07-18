@@ -4,8 +4,8 @@ default_branch: master
 default_buildbin: sbt
 mvn_args: ''
 sbt_args: 'set isSnapshot := true'
-default_hadoop_versions: [3.1]
-default_spark_versions: [2.3.2]
+default_hadoop_versions: [3.3.1]
+default_spark_versions: [3.1.2]
 
 components:
   - name: ti-spark-examples

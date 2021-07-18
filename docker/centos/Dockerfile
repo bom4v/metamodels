@@ -2,7 +2,7 @@
 # http://github.com/bom4v/metamodels/tree/master/docker/centos
 # Umbrella project for the BOM for Verticals (BOM4V) components
 #
-FROM bigdatadevelopment/base:centos8
+FROM infrahelpers/javabigdata:centos8
 
 LABEL authors="Denis Arnaud <denis.arnaud_github at m4x dot org>"
 

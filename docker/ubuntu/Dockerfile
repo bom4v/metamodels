@@ -2,7 +2,7 @@
 # http://github.com/bom4v/metamodels/tree/master/docker/ubuntu
 # Umbrella project for the BOM for Verticals (BOM4V) components
 #
-FROM bigdatadevelopment/base:ubuntu2004
+FROM infrahelpers/javabigdata:ubuntu2004
 
 LABEL authors="Denis Arnaud <denis.arnaud_github at m4x dot org>"
 

@@ -14,9 +14,15 @@ ENV LANG en_US.UTF-8
 ENV LC_ALL $LANG
 ENV BOM4V_DIR $HOME/dev/bom4v
 
-# Install the nokogiri Gem
+# Install development packages for Ruby
 USER root
-RUN gem install nokogiri
+RUN dnf -y install zlib-devel make m4 automake autoconf libtool \
+    langtable gcc gcc-c++ \
+    redhat-rpm-config \
+    ruby-devel rubygems-devel
+
+# Install the nokogiri Gem
+RUN gem install nokogiri --platform=ruby
 
 # Switch to the `build` user
 USER build

@@ -14,6 +14,10 @@ ENV LANG en_US.UTF-8
 ENV LC_ALL $LANG
 ENV BOM4V_DIR $HOME/dev/bom4v
 
+# Install the nokogiri Gem
+USER root
+RUN gem install nokogiri
+
 # Switch to the `build` user
 USER build
 WORKDIR $BOM4V_DIR

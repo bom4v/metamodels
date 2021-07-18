@@ -1,6 +1,7 @@
 Build of Business-oriented Object Models (BOM)
 ==============================================
 
+[![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/infrahelpers/bom4v)](https://hub.docker.com/repository/docker/infrahelpers/bom4v/general)
 [![Docker Repository on Quay](https://quay.io/repository/bom4v/metamodels/status "Docker Repository on Quay")](https://quay.io/repository/bom4v/metamodels)
 
 # Overview
@@ -56,35 +57,35 @@ One can then interact with any specific component directly by jumping
 (`cd`-ing) into the corresponding directory. Software code can be edited
 and committed directly from that component sub-directory.
 
-[Docker images, hosted on Docker Cloud](https://cloud.docker.com/u/bom4v/repository/docker/bom4v/sparkml),
+[Docker images, hosted on Docker Cloud](https://hub.docker.com/repository/docker/infrahelpers/bom4v/general),
 are provided for convenience reason, avoiding the need to set up
 a proper development environment: they provide ready-to-use,
 ready-to-develop, ready-to-contribute environments on top of
 a few well known Linux distributions
-(_e.g._, [CentOS 7](https://wiki.centos.org/Manuals/ReleaseNotes/CentOS7),
-[Debian 9 (Stretch)](https://www.debian.org/releases/stretch/) and
-[Ubuntu 18.10 (Cosmic Cuttlefish)](http://releases.ubuntu.com/18.10/)).
+(_e.g._, [CentOS 8](https://wiki.centos.org/Manuals/ReleaseNotes/CentOS7),
+[Debian 10 (Buster)](https://www.debian.org/releases/buster/) and
+[Ubuntu 20.04 (Focal Fossal)](http://releases.ubuntu.com/20.04/)).
 Enjoy!
 
 # References
 * Docker Cloud repository:
-  https://cloud.docker.com/u/bom4v/repository/docker/bom4v/sparkml
+  https://hub.docker.com/repository/docker/infrahelpers/bom4v/general
   + Base Docker images:
-    https://cloud.docker.com/u/bigdatadevelopment/repository/docker/bigdatadevelopment/base
+    https://hub.docker.com/repository/docker/infrahelpers/bom4v/builds
 * GitHub organizations:
   + Business-oriented Object Models (BOM) for the TI vertical (BOM4V):
-    http://github.com/bom4v
-  + Telecoms Intelligence (TI): http://github.com/telecomsintelligence
-  + Transport Intelligence (TI): http://github.com/transport-intelligence
-  + Travel Intelligence (TI): http://github.com/travel-intelligence
+    https://github.com/bom4v
+  + Telecoms Intelligence (TI): https://github.com/telecomsintelligence
+  + Transport Intelligence (TI): https://github.com/transport-intelligence
+  + Travel Intelligence (TI): https://github.com/travel-intelligence
 
 # Run the Docker image
 * As a quick starter, a Spark-based churn detection example may be run
   from any of
-  [Docker images](https://cloud.docker.com/u/bom4v/repository/docker/bom4v/sparkml),
+  [Docker images](https://hub.docker.com/repository/docker/infrahelpers/bom4v/general),
   where `<linux-distrib>` is `centos`, `debian` or `ubuntu`:
 ```bash
-$ docker run --rm -it bom4v/sparkml:<linux-distrib> bash
+$ docker run --rm -it infrahelpers/bom4v:<linux-distrib> bash
 [build@c..5 bom4v]$ cd workspace/src/ti-spark-examples
 [build@c..5 ti-spark-examples (master)]$ ./fillLocalDataDir.sh
 [build@c..5 ti-spark-examples (master)]$ sbt "runMain org.bom4v.ti.Demonstrator"
@@ -127,7 +128,7 @@ ratio false negative : 0.11544227886056972
 
 # Meta-build
 The
-[Docker images](https://cloud.docker.com/u/bom4v/repository/docker/bom4v/sparkml)
+[Docker images](https://hub.docker.com/repository/docker/infrahelpers/bom4v/general)
 come with all the dependencies already installed. If there is a need,
 however, for some more customization (for instance, other software products
 such as [Kafka](https://kafka.apache.org) or
@@ -137,7 +138,7 @@ and running on a native environment (as opposed to within
 a Docker container).
 
 An alternative is to develop your own Docker image from the
-[one provided by that project](https://cloud.docker.com/u/bom4v/repository/docker/bom4v/sparkml).
+[one provided by that project](https://hub.docker.com/repository/docker/infrahelpers/bom4v/general).
 You would typically start the `Dockerfile` with
 `FROM bom4v/sparkml:<linux-distrib>`, where `<linux-distrib>` is `centos`,
 `debian` or `ubuntu`.
@@ -150,7 +151,7 @@ engines currently relies on [Spark](https://spark.apache.org).
 
 ## Docker images
 The
-[maintained Docker images for that project](http://github.com/bom4v/sparkml/tree/master/docker/)
+[maintained Docker images for that project](http://github.com/bom4v/metamodels/tree/master/docker/)
 come with all the necessary pieces of software. They can either be used
 _as is_, or used as inspiration for _ad hoc_ setup on other configurations.
 
@@ -159,34 +160,33 @@ _as is_, or used as inspiration for _ad hoc_ setup on other configurations.
 ### CentOS/RedHat
 * Install [EPEL for CentOS/RedHat](https://fedoraproject.org/wiki/EPEL):
 ```bash
-$ sudo rpm --import http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-7
-$ sudo yum -y install epel-release
+$ sudo rpm --import http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-Official
+$ sudo dnf -y install 'dnf-command(config-manager)'
+$ sudo dnf config-manager --set-enabled powertools
+$ sudo dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 ```
 
 * Install a few useful packages:
 ```bash
-sudo yum -y install less htop net-tools which sudo man vim \
+sudo dnf -y install less htop net-tools which sudo man vim \
 	git-all wget curl file bash-completion keyutils \
-	gzip tar unzip maven rake rubygem-rake rubygem-nokogiri
+	gzip tar unzip maven rake rubygem-rake
 ```
 
 * Install [SBT](https://www.scala-sbt.org/download.html):
 ```bash
-$ sudo (curl -sS https://bintray.com/sbt/rpm/rpm | \
-	tee /etc/yum.repos.d/bintray-sbt-rpm.repo)
-$ sudo yum -y install sbt
+$ export SBT_VERSION="1.5.5"
+$ sudo dnf -y install https://repo.scala-sbt.org/scalasbt/rpm/sbt-$SBT_VERSION.rpm
 ```
 
-* Install the [Java 8 OpenJDK](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html):
+* [Install the Java 11 OpenJDK](ihttps://openjdk.java.net/install/):
 ```bash
-$ sudo wget -c --header "Cookie: oraclelicense=accept-securebackup-cookie" \
-	http://download.oracle.com/otn-pub/java/jdk/8u192-b12/750e1c8617c5452694857ad95c3ee230/jdk-8u192-linux-x64.rpm && \
-	yum -y install jdk-8u192-linux-x64.rpm && rm -f jdk-8u192-linux-x64.rpm
+$ sudo dnf -y install java-11-openjdk-devel
 ```
 
 * Download and install Scala:
 ```bash
-$ sudo SCALA_VERSION=2.11.8 && \
+$ sudo SCALA_VERSION="2.12.14" && \
 	mkdir -p /opt/scala && \
 	wget http://www.scala-lang.org/files/archive/scala-$SCALA_VERSION.tgz && \
 	tar xvf scala-$SCALA_VERSION.tgz && \
@@ -203,10 +203,10 @@ $ . ~/.bashrc
 ```
 
 ### MacOS
-* Java 8, Maven, SBT and Apache Spark:
+* Java 11, Maven, SBT and Apache Spark:
 ```bash
 $ brew tap adoptopenjdk/openjdk
-$ brew cask install adoptopenjdk8
+$ brew cask install adoptopenjdk11
 $ brew install maven sbt scala apache-spark
 ```
 
@@ -214,11 +214,11 @@ $ brew install maven sbt scala apache-spark
 * Run SBT once, as to download and cache all the dependencies:
 ```bash
 $ scala -version
-Scala code runner version 2.11.8 -- Copyright 2002-2016, LAMP/EPFL
+Scala code runner version 2.12.14 -- Copyright 2002-2021, LAMP/EPFL and Lightbend, Inc.
 $ sbt about
 [info] Loading project definition from ~/project
-[info] This is sbt 1.2.7
-[info] The current project is built against Scala 2.12.7
+[info] This is sbt 1.4.9
+[info] The current project is built against Scala 2.12.14
 ```
 
 ## Clone the Git repository
@@ -241,7 +241,7 @@ That operation may be done either from within the Docker container,
 or in a native environment (on which the dependencies have been installed).
 
 As a reminder, to enter into the container, just type
-`docker run --rm -it bom4v/sparkml:<linux-distrib> bash` (and `exit` to leave it).
+`docker run --rm -it infrahelpers/bom4v:<linux-distrib> bash` (and `exit` to leave it).
 
 The following sequence of commands describes how to build, test and deliver
 the artefacts of all the components, so that Spark can execute the full project:
@@ -257,7 +257,7 @@ Those operations may be done either from within the Docker container,
 or in a native environment (on which the dependencies have been installed).
 
 As a reminder, to enter into the container, just type
-`docker run --rm -it bom4v/sparkml:<linux-distrib> bash`,
+`docker run --rm -it infrahelpers/bom4v:<linux-distrib> bash`,
 where `<linux-distrib>` is `centos`, `debian` or `ubuntu`
 (and `exit` to leave it).
 
@@ -291,11 +291,11 @@ how to do it:
 $ mkdir -p ~/dev/bom4v && cd ~/dev/bom4v
 $ git clone https://github.com/bom4v/metamodels.git
 $ cd metamodels
-$ docker build -t bom4v/sparkml:<linux-distrib> --squash docker/<linux-distrib>/
-$ docker push bom4v/sparkml:<linux-distrib>
+$ docker build -t infrahelpers/bom4v:<linux-distrib> --squash docker/<linux-distrib>/
+$ docker push infrahelpers/bom4v:<linux-distrib>
 $ docker images | grep "^bom4v"
 REPOSITORY      TAG             IMAGE ID        CREATED             SIZE
-bom4v/sparkml   <linux-distrib> 9a33eee22a3d    About an hour ago   2.16GB
+infrahelpers/bom4v   <linux-distrib> 9a33eee22a3d    About an hour ago   2.16GB
 ```
 
 # Interacting with a Spark installation
@@ -337,11 +337,11 @@ $ $SPARK_HOME/bin/spark-submit \
   --class org.bom4v.ti.Demonstrator \
   --master local --deploy-mode client \
   --jars \
-file:$MVN_CHD_REPO/org/bom4v/ti/ti-models-calls_2.11/0.0.1/ti-models-calls_2.11-0.0.1.jar,\
-file:$MVN_CHD_REPO/org/bom4v/ti/ti-serializers-calls_2.11/0.0.1-spark2.3/ti-serializers-calls_2.11-0.0.1-spark2.3.jar,\
-file:$MVN_CHD_REPO/org/bom4v/ti/ti-serializers-customers_2.11/0.0.1-spark2.3/ti-serializers-customers_2.11-0.0.1-spark2.3.jar,\
-file:$MVN_CHD_REPO/org/bom4v/ti/ti-models-customers_2.11/0.0.1/ti-models-customers_2.11-0.0.1.jar \
-  target/scala-2.11/ti-spark-examples_2.11-0.0.1-spark2.3.jar
+file:$MVN_CHD_REPO/org/bom4v/ti/ti-models-calls_2.12/0.0.1/ti-models-calls_2.12-0.0.1.jar,\
+file:$MVN_CHD_REPO/org/bom4v/ti/ti-serializers-calls_2.12/0.0.1-spark2.3/ti-serializers-calls_2.12-0.0.1-spark2.3.jar,\
+file:$MVN_CHD_REPO/org/bom4v/ti/ti-serializers-customers_2.12/0.0.1-spark2.3/ti-serializers-customers_2.12-0.0.1-spark2.3.jar,\
+file:$MVN_CHD_REPO/org/bom4v/ti/ti-models-customers_2.12/0.0.1/ti-models-customers_2.12-0.0.1.jar \
+  target/scala-2.12/ti-spark-examples_2.12-0.0.1-spark2.3.jar
 ```
 
 ## Spark cluster - Client mode
@@ -356,11 +356,11 @@ $ $SPARK_HOME/bin/spark-submit \
   --class org.bom4v.ti.Demonstrator \
   --master yarn --deploy-mode client \
   --jars \
-file:$MVN_CHD_REPO/org/bom4v/ti/ti-models-calls_2.11/0.0.1/ti-models-calls_2.11-0.0.1.jar,\
-file:$MVN_CHD_REPO/org/bom4v/ti/ti-serializers-calls_2.11/0.0.1-spark2.3/ti-serializers-calls_2.11-0.0.1-spark2.3.jar,\
-file:$MVN_CHD_REPO/org/bom4v/ti/ti-serializers-customers_2.11/0.0.1-spark2.3/ti-serializers-customers_2.11-0.0.1-spark2.3.jar,\
-file:$MVN_CHD_REPO/org/bom4v/ti/ti-models-customers_2.11/0.0.1/ti-models-customers_2.11-0.0.1.jar \
-  target/scala-2.11/ti-spark-examples_2.11-0.0.1-spark2.3.jar
+file:$MVN_CHD_REPO/org/bom4v/ti/ti-models-calls_2.12/0.0.1/ti-models-calls_2.12-0.0.1.jar,\
+file:$MVN_CHD_REPO/org/bom4v/ti/ti-serializers-calls_2.12/0.0.1-spark2.3/ti-serializers-calls_2.12-0.0.1-spark2.3.jar,\
+file:$MVN_CHD_REPO/org/bom4v/ti/ti-serializers-customers_2.12/0.0.1-spark2.3/ti-serializers-customers_2.12-0.0.1-spark2.3.jar,\
+file:$MVN_CHD_REPO/org/bom4v/ti/ti-models-customers_2.12/0.0.1/ti-models-customers_2.12-0.0.1.jar \
+  target/scala-2.12/ti-spark-examples_2.12-0.0.1-spark2.3.jar
 ```
 
 ## Spark cluster - Server mode
@@ -381,7 +381,7 @@ $ alias hdfsfs='hdfs dfs -Dfs.defaultFS=${HDFS_URL}'
 $ export ATF_USR_DIR="/user/<user>/artefacts"
 $ export ATF_USR_URL="${HDFS_URL}${ATF_USR_DIR}"
 $ hdfsfs -mkdir -p $ATF_USR_DIR
-$ hdfsfs -put -f target/scala-2.11/ti-spark-examples_2.11-0.0.1-spark2.3.jar $ATF_USR_DIR
+$ hdfsfs -put -f target/scala-2.12/ti-spark-examples_2.12-0.0.1-spark2.3.jar $ATF_USR_DIR
 ```
 
 ```bash
@@ -389,10 +389,10 @@ $ $SPARK_HOME/bin/spark-submit \
   --class org.bom4v.ti.Demonstrator \
   --master yarn --deploy-mode cluster \
   --jars \
-file:$MVN_CHD_REPO/org/bom4v/ti/ti-models-calls_2.11/0.0.1/ti-models-calls_2.11-0.0.1.jar,\
-file:$MVN_CHD_REPO/org/bom4v/ti/ti-serializers-calls_2.11/0.0.1-spark2.3/ti-serializers-calls_2.11-0.0.1-spark2.3.jar,\
-file:$MVN_CHD_REPO/org/bom4v/ti/ti-serializers-customers_2.11/0.0.1-spark2.3/ti-serializers-customers_2.11-0.0.1-spark2.3.jar,\
-file:$MVN_CHD_REPO/org/bom4v/ti/ti-models-customers_2.11/0.0.1/ti-models-customers_2.11-0.0.1.jar \
-  target/scala-2.11/ti-spark-examples_2.11-0.0.1-spark2.3.jar
+file:$MVN_CHD_REPO/org/bom4v/ti/ti-models-calls_2.12/0.0.1/ti-models-calls_2.12-0.0.1.jar,\
+file:$MVN_CHD_REPO/org/bom4v/ti/ti-serializers-calls_2.12/0.0.1-spark2.3/ti-serializers-calls_2.12-0.0.1-spark2.3.jar,\
+file:$MVN_CHD_REPO/org/bom4v/ti/ti-serializers-customers_2.12/0.0.1-spark2.3/ti-serializers-customers_2.12-0.0.1-spark2.3.jar,\
+file:$MVN_CHD_REPO/org/bom4v/ti/ti-models-customers_2.12/0.0.1/ti-models-customers_2.12-0.0.1.jar \
+  target/scala-2.12/ti-spark-examples_2.12-0.0.1-spark2.3.jar
 ```
 

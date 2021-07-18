@@ -2,9 +2,9 @@
 # http://github.com/bom4v/metamodels/tree/master/docker/debian
 # Umbrella project for the BOM for Verticals (BOM4V) components
 #
+FROM bigdatadevelopment/base:debian10
 
-FROM bigdatadevelopment/base:debian9
-MAINTAINER Denis Arnaud <denis.arnaud_github at m4x dot org>
+LABEL authors="Denis Arnaud <denis.arnaud_github at m4x dot org>"
 
 # Docker build time environment variables
 ENV container docker

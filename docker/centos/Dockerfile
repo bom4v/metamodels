@@ -2,9 +2,9 @@
 # http://github.com/bom4v/metamodels/tree/master/docker/centos
 # Umbrella project for the BOM for Verticals (BOM4V) components
 #
+FROM bigdatadevelopment/base:centos8
 
-FROM bigdatadevelopment/base:centos7
-MAINTAINER Denis Arnaud <denis.arnaud_github at m4x dot org>
+LABEL authors="Denis Arnaud <denis.arnaud_github at m4x dot org>"
 
 # Docker build time environment variables
 ENV container docker

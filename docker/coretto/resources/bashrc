@@ -1,0 +1,45 @@
+
+# Locale
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
+
+# History
+export HISTTIMEFORMAT="%d/%m/%y %T "
+
+# Python
+export PYENV_ROOT="${HOME}/.pyenv"
+export PATH="${PYENV_ROOT}/bin:${PATH}"
+
+if command -v pyenv 1>/dev/null 2>&1
+then
+	eval "$(pyenv init --path)"
+    eval "$(pyenv init -)"
+fi
+
+# Ruby
+# git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+# git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+export RBENV_ROOT="${HOME}/.rbenv"
+export PATH="${RBENV_ROOT}/plugins/ruby-build/bin:${RBENV_ROOT}/bin:${PATH}"
+if command -v rbenv 1>/dev/null 2>&1
+then
+	eval "$(rbenv init -)"
+fi
+
+# Scala
+export SCALA_HOME="/usr/lib/scala"
+export PATH="${SCALA_HOME}/bin:${PATH}"
+
+# Source global definitions
+if [ -f /etc/bashrc ]
+then
+        . /etc/bashrc
+fi
+
+# Aliases
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+alias dir='ls -laFh --color'
+alias grep='grep --color'
+

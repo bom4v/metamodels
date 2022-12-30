@@ -291,11 +291,11 @@ how to do it:
 $ mkdir -p ~/dev/bom4v && cd ~/dev/bom4v
 $ git clone https://github.com/bom4v/metamodels.git
 $ cd metamodels
-$ docker build -t infrahelpers/bom4v:<linux-distrib> --squash docker/<linux-distrib>/
-$ docker push infrahelpers/bom4v:<linux-distrib>
+$ docker build -t infrahelpers/bom4v:coretto docker/coretto/
+$ docker push infrahelpers/bom4v:coretto
 $ docker images | grep "^bom4v"
-REPOSITORY      TAG             IMAGE ID        CREATED             SIZE
-infrahelpers/bom4v   <linux-distrib> 9a33eee22a3d    About an hour ago   2.16GB
+REPOSITORY      TAG          IMAGE ID        CREATED             SIZE
+infrahelpers/bom4v   coretto 9a33eee22a3d    About an hour ago   2.16GB
 ```
 
 # Interacting with a Spark installation

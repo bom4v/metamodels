@@ -1,3 +1,6 @@
+#
+# File: https://github.com/airsim/metasim/blob/main/docker/coretto/resources/Rakefile
+#
 require 'yaml'
 require 'nokogiri'
 
@@ -110,6 +113,19 @@ def lookup_maven_pom(cmp_src_path)
   mvn_versions
 end
 
+# Lookup VERSION file
+def lookup_version_file(cmp_src_path)
+  version_file = ''
+  if File.executable?(cmp_src_path)
+    ::Dir.chdir(cmp_src_path) do
+      if File.readable?('VERSION')
+        version_file = File.join cmp_src_path, 'VERSION'
+      end
+    end
+  end
+  version_file
+end
+
 # Lookup SBT file
 def lookup_sbt_file(cmp_src_path)
   sbt_file = ''
@@ -135,37 +151,46 @@ def lookup_version_from_mvn_pom(mvn_pom_file)
       mvn_pom_version = $1
       if $2
         has_hadoop = true
-	mvn_pom_version += $2
+	    mvn_pom_version += $2
       end
       if $3
         has_spark = true
-	mvn_pom_version += $3
+	    mvn_pom_version += $3
       end
     end
   end
   [mvn_pom_version, has_hadoop, has_spark]
 end
 
-# Extract the version from running a dedicated SBT target
-def lookup_version_from_sbt_build(sbt_build_file)
-  sbt_proj_version = '0.0.0'
+# Extract the version from the VERSION file
+def lookup_version_from_version_file(cmp)
+  # VERSION file
+  cmp_src_path = component_src_path cmp
+  version_file = lookup_version_file(cmp_src_path)
+  
+  cmp_version = '0.0.0'
   has_hadoop = false
   has_spark = false
-  File.open(sbt_build_file, "r") do |f|
-    file_content = f.read
-    if file_content =~ /version := "(\d*\.\d*.\d*)(-hadoop\d\.\d)?(-spark\d\.\d)?"[,]?$/i
-      sbt_proj_version = $1
-      if $2
-        has_hadoop = true
-	sbt_proj_version += $2
-      end
-      if $3
-        has_spark = true
-	sbt_proj_version += $3
+
+  if version_file == ''
+    STDERR.puts "[#{cmp}]: the VERSION file is missing in the source directory ('#{cmp_src_path}'); it is expected to store the version of the component/library"
+  else   
+    File.open(version_file, "r") do |f|
+      file_content = f.read
+      if file_content =~ /(\d*\.\d*.\d*)(-hadoop\d\.\d)?(-spark\d\.\d)?[,]?$/i
+        cmp_version = $1
+        if $2
+          has_hadoop = true
+	      cmp_version += $2
+        end
+        if $3
+          has_spark = true
+	      cmp_version += $3
+        end
       end
     end
-  end
-  [sbt_proj_version, has_hadoop, has_spark]
+  end    
+  [cmp_version, has_hadoop, has_spark]
 end
 
 # Set up the Maven build targets
@@ -218,28 +243,28 @@ def setup_sbt_build_targets(cmp, build_vars)
   cmp_hadoop_versions = component_hadoop_versions cmp
   cmp_spark_versions = component_spark_versions cmp
 
+  # Extract the elements of version from the SBT build file
+  (cmp_version, has_hadoop, has_spark) = lookup_version_from_version_file(cmp)
+
+  # Store the elements of version
+  build_vars['PACKAGE_VERSIONS'][cmp_version] = true
+  build_vars['HAS_HADOOP'] = has_hadoop
+  build_vars['HAS_SPARK'] = has_spark
+
   # SBT build (for Scala code)
   sbt_file = lookup_sbt_file(cmp_src_path)
   if sbt_file != ''
     if cmp_build_bin != 'sbt'
-      STDERR.puts "[#{cmp}]: the builder is configured (in the YAML file) as '#{cmp_build_bin}', however it seems to be 'sbt'. Look in the source directory ('#{cmp_src_path}') for more details"
+      STDERR.puts "[#{cmp}]: the builder is configured (in the YAML file) as '#{cmp_build_bin}', however it is expected to be 'sbt'. Look in the source directory ('#{cmp_src_path}') for more details"
     end
 
     # Store the SBT build file
     build_vars['BUILDER_FILES'] << sbt_file
 
-    # Extract the elements of version from the SBT build file
-    (sbt_version, has_hadoop, has_spark) = lookup_version_from_sbt_build(sbt_file)
-
-    # Store the elements of version
-    build_vars['PACKAGE_VERSIONS'][sbt_version] = true
-    build_vars['HAS_HADOOP'] = has_hadoop
-    build_vars['HAS_SPARK'] = has_spark
-
     # Set up the SBT build command line
     sbt_args_hadoop_list = Array.new
     sbt_args_list = Array.new
-    sbt_args_base = "\'; #{CONF_SBT_ARGS} ; set version := \"#{sbt_version}"
+    sbt_args_base = "\'; #{CONF_SBT_ARGS} ; set version := \"#{cmp_version}"
     if has_hadoop
       # There should be a target for every version of Hadoop
       cmp_hadoop_versions.each do |hadoop_version|
@@ -446,7 +471,7 @@ COMPONENTS.each do |cmp|
   # Clone tasks
   
   file cmp_src_path => WORK_PATH do
-    do_shell "#{GIT_BIN} clone -n #{cmp_repo} #{cmp_src_path}"
+    do_shell "#{GIT_BIN} clone #{cmp_repo} #{cmp_src_path}"
   end
   desc "Clone component #{cmp} in #{cmp_src_path}"
   task "clone_#{cmp}" => cmp_src_path

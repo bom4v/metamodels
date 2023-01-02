@@ -1,8 +1,16 @@
 #
-# http://github.com/bom4v/metamodels/tree/master/docker/debian
+# Dockerfile: https://github.com/bom4v/metamodels/tree/master/docker/debian/Dockerfile
+# Docker Hub/Cloud page: https://cloud.docker.com/u/infrahelpers/repository/docker/infrahelpers/bom4v
+# Usual Docker tag: infrahelpers/bom4v:debian
+#
 # Umbrella project for the BOM for Verticals (BOM4V) components
 #
-FROM infrahelpers/javabigdata:debian10
+# Base image:
+# * Usual Docker tag: infrahelpers/javabigdata:debian11
+# * Docker Hub/Cloud page: https://cloud.docker.com/u/infrahelpers/repository/docker/infrahelpers/javabigdata
+# * Dockerfile: https://github.com/bom4v/docker-images/tree/master/debian11/Dockerfile
+#
+FROM infrahelpers/javabigdata:debian11
 
 LABEL authors="Denis Arnaud <denis.arnaud_github at m4x dot org>"
 
@@ -22,7 +30,6 @@ RUN apt-get -qq update && \
         gcc g++ cppcheck clang cmake manpages patch pkg-config \
         m4 autoconf automake libtool libltdl-dev build-essential \
         ruby ruby-dev rubygems
-RUN gem install nokogiri --platform=ruby
 
 # Switch to the `build` user
 USER build

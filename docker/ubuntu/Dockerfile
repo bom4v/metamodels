@@ -1,6 +1,14 @@
 #
-# http://github.com/bom4v/metamodels/tree/master/docker/ubuntu
+# Dockerfile: https://github.com/bom4v/metamodels/tree/master/docker/ubuntu/Dockerfile
+# Docker Hub/Cloud page: https://cloud.docker.com/u/infrahelpers/repository/docker/infrahelpers/bom4v
+# Usual Docker tag: infrahelpers/bom4v:ubuntu
+#
 # Umbrella project for the BOM for Verticals (BOM4V) components
+#
+# Base image:
+# * Usual Docker tag: infrahelpers/javabigdata:ubuntu2204
+# * Docker Hub/Cloud page: https://cloud.docker.com/u/infrahelpers/repository/docker/infrahelpers/javabigdata
+# * Dockerfile: https://github.com/bom4v/docker-images/tree/master/ubuntu2204/Dockerfile
 #
 FROM infrahelpers/javabigdata:ubuntu2004
 
@@ -13,10 +21,6 @@ ENV LANGUAGE en_US:en
 ENV LANG en_US.UTF-8
 ENV LC_ALL $LANG
 ENV BOM4V_DIR $HOME/dev/bom4v
-
-# Install the nokogiri Gem
-USER root
-RUN gem install nokogiri
 
 # Switch to the `build` user
 USER build

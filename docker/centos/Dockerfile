@@ -1,5 +1,5 @@
 #
-# Dockerfile: https://github.com/bom4v/metamodels/tree/master/docker/centos8/Dockerfile
+# Dockerfile: https://github.com/bom4v/metamodels/tree/master/docker/centos/Dockerfile
 # Docker Hub/Cloud page: https://cloud.docker.com/u/infrahelpers/repository/docker/infrahelpers/bom4v
 # Usual Docker tag: infrahelpers/bom4v:centos
 #

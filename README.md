@@ -286,12 +286,12 @@ $ cd -
 
 ## Batched build and Docker image generation
 If the Docker images need to be re-built, the following commands explain
-how to do it:
+how to do it (`<linux-distrb>` is one among `corettp`, `centos`):
 ```bash
 $ mkdir -p ~/dev/bom4v && cd ~/dev/bom4v
 $ git clone https://github.com/bom4v/metamodels.git
 $ cd metamodels
-$ docker build -t infrahelpers/bom4v:coretto docker/coretto/
+$ docker build -t infrahelpers/bom4v:<linux-distrib> docker/<linux-distrib>/
 $ docker push infrahelpers/bom4v:coretto
 $ docker images | grep "^bom4v"
 REPOSITORY      TAG          IMAGE ID        CREATED             SIZE

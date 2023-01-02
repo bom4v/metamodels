@@ -1,6 +1,14 @@
 #
-# http://github.com/bom4v/metamodels/tree/master/docker/centos
+# Dockerfile: https://github.com/bom4v/metamodels/tree/master/docker/centos8/Dockerfile
+# Docker Hub/Cloud page: https://cloud.docker.com/u/infrahelpers/repository/docker/infrahelpers/bom4v
+# Usual Docker tag: infrahelpers/bom4v:centos
+#
 # Umbrella project for the BOM for Verticals (BOM4V) components
+#
+# Base image:
+# * Usual Docker tag: infrahelpers/javabigdata:centos8
+# * Docker Hub/Cloud page: https://cloud.docker.com/u/infrahelpers/repository/docker/infrahelpers/javabigdata
+# * Dockerfile: https://github.com/bom4v/docker-images/tree/master/centos8/Dockerfile
 #
 FROM infrahelpers/javabigdata:centos8
 
@@ -14,16 +22,6 @@ ENV LANG en_US.UTF-8
 ENV LC_ALL $LANG
 ENV BOM4V_DIR $HOME/dev/bom4v
 
-# Install development packages for Ruby
-USER root
-RUN dnf -y install zlib-devel make m4 automake autoconf libtool \
-    langtable gcc gcc-c++ \
-    redhat-rpm-config \
-    ruby-devel rubygems-devel
-
-# Install the nokogiri Gem
-RUN gem install nokogiri --platform=ruby
-
 # Switch to the `build` user
 USER build
 WORKDIR $BOM4V_DIR
@@ -33,8 +31,8 @@ ADD resources/Rakefile resources/metamodels.yaml.sample $BOM4V_DIR/
 RUN mv $BOM4V_DIR/metamodels.yaml.sample $BOM4V_DIR/metamodels.yaml
 
 # Build the BOM for Verticals (BOM4V) components
-ENV PATH $PATH:/usr/lib/scala/bin
-RUN rake clone && rake checkout && \
+RUN source $HOME/.bashrc && \
+	rake clone && rake checkout && \
 	rake offline=true deliver
 
 # Entry point

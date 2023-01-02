@@ -1,5 +1,5 @@
 #
-# File: https://github.com/airsim/metasim/blob/main/docker/centos/resources/Rakefile
+# File: https://github.com/airsim/metasim/blob/main/docker/debian/resources/Rakefile
 #
 require 'yaml'
 require 'nokogiri'
@@ -168,27 +168,28 @@ def lookup_version_from_version_file(cmp)
   cmp_src_path = component_src_path cmp
   version_file = lookup_version_file(cmp_src_path)
   
-  if not File.readable?(version_file)
-    STDERR.puts "[#{cmp}]: the VERSION file is missing in the source directory ('#{cmp_src_path}'); it is expected to store the version of the component/library"
-  end
-
   cmp_version = '0.0.0'
   has_hadoop = false
   has_spark = false
-  File.open(version_file, "r") do |f|
-    file_content = f.read
-    if file_content =~ /(\d*\.\d*.\d*)(-hadoop\d\.\d)?(-spark\d\.\d)?[,]?$/i
-      cmp_version = $1
-      if $2
-        has_hadoop = true
-	    cmp_version += $2
-      end
-      if $3
-        has_spark = true
-	    cmp_version += $3
+
+  if version_file == ''
+    STDERR.puts "[#{cmp}]: the VERSION file is missing in the source directory ('#{cmp_src_path}'); it is expected to store the version of the component/library"
+  else   
+    File.open(version_file, "r") do |f|
+      file_content = f.read
+      if file_content =~ /(\d*\.\d*.\d*)(-hadoop\d\.\d)?(-spark\d\.\d)?[,]?$/i
+        cmp_version = $1
+        if $2
+          has_hadoop = true
+	      cmp_version += $2
+        end
+        if $3
+          has_spark = true
+	      cmp_version += $3
+        end
       end
     end
-  end
+  end    
   [cmp_version, has_hadoop, has_spark]
 end
 
@@ -470,7 +471,7 @@ COMPONENTS.each do |cmp|
   # Clone tasks
   
   file cmp_src_path => WORK_PATH do
-    do_shell "#{GIT_BIN} clone -n #{cmp_repo} #{cmp_src_path}"
+    do_shell "#{GIT_BIN} clone #{cmp_repo} #{cmp_src_path}"
   end
   desc "Clone component #{cmp} in #{cmp_src_path}"
   task "clone_#{cmp}" => cmp_src_path

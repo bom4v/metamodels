@@ -6,11 +6,11 @@
 # Umbrella project for the BOM for Verticals (BOM4V) components
 #
 # Base image:
-# * Usual Docker tag: infrahelpers/javabigdata:debian11
+# * Usual Docker tag: infrahelpers/javabigdata:debian12
 # * Docker Hub/Cloud page: https://cloud.docker.com/u/infrahelpers/repository/docker/infrahelpers/javabigdata
-# * Dockerfile: https://github.com/bom4v/docker-images/tree/master/debian11/Dockerfile
+# * Dockerfile: https://github.com/bom4v/docker-images/tree/master/debian12/Dockerfile
 #
-FROM infrahelpers/javabigdata:debian11
+FROM infrahelpers/javabigdata:debian12
 
 LABEL authors="Denis Arnaud <denis.arnaud_github at m4x dot org>"
 

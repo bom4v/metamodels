@@ -70,14 +70,37 @@ Enjoy!
 # References
 * Docker Cloud repository:
   https://hub.docker.com/repository/docker/infrahelpers/bom4v/general
-  + Base Docker images:
+  * Base Docker images:
     https://hub.docker.com/repository/docker/infrahelpers/bom4v/builds
 * GitHub organizations:
-  + Business-oriented Object Models (BOM) for the TI vertical (BOM4V):
+  * Business-oriented Object Models (BOM) for the TI vertical (BOM4V):
     https://github.com/bom4v
-  + Telecoms Intelligence (TI): https://github.com/telecomsintelligence
-  + Transport Intelligence (TI): https://github.com/transport-intelligence
-  + Travel Intelligence (TI): https://github.com/travel-intelligence
+  * Telecoms Intelligence (TI): https://github.com/telecomsintelligence
+  * Transport Intelligence (TI): https://github.com/transport-intelligence
+  * Travel Intelligence (TI): https://github.com/travel-intelligence
+
+## Ontologies
+
+### Freight Ontology Series
+* Author: Massimiliano Catapano
+  ([Massimiliano Catapano on LinkedIn](https://www.linkedin.com/in/massimiliano-catapano-65a12a11/))
+* Date: Aug. 2025
+* Links to the posts on LinkedIn:
+  * Part 1: https://www.linkedin.com/posts/massimiliano-catapano-65a12a11_freighttransport-logistics-ontology-activity-7356761081525993474-ufri/
+  * Part 2: https://www.linkedin.com/posts/massimiliano-catapano-65a12a11_freightontology-semanticmodeling-logisticstech-activity-7359150166450368512-WqxX/
+* Ontology:
+  * Transport Order → a business instruction to move goods
+  * Leg Order → a segment of that transport
+  * Trip → the actual execution of one or more legs by a vehicle/driver
+  * Stop → a physical location visited during the trip
+  * Event → something that happens in time (e.g. arrival, departure, exception)
+  * Milestone → a business-relevant point in the lifecycle (e.g. Pickup Completed)
+* Semantic constrains:
+  * A Leg is part of exactly one Transport Order
+  * A Trip may serve multiple Legs
+  * Stops belong to Trips
+  * Events describe the lifecycle of movement and interaction
+  * Milestones aggregate or abstract Events for business relevance
 
 # Run the Docker image
 * As a quick starter, a Spark-based churn detection example may be run
